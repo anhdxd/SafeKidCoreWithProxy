@@ -35,11 +35,11 @@ namespace KMASafeKidCore
         private static void Intialize()
         {
             // Load block list
-            var lines = File.ReadAllLines(pathBlockList);
-            foreach (var line in lines)
-            {
-                blockList.Add(line);
-            }
+            //var lines = File.ReadAllLines(pathBlockList);
+            //foreach (var line in lines)
+            //{
+            //    blockList.Add(line);
+            //}
         }
         public static void StartProxyFilter(string pathListBlock = "blocklist.txt")
         {
@@ -179,10 +179,7 @@ namespace KMASafeKidCore
 
         private static void OnNewMessage(HttpMessageInfo messageInfo)
         {
-            ForceGoogleSafeSearch(messageInfo);
-
-            // Code Read file each line to sorter set
-            if (blockList.Any(s => s.Contains(messageInfo.Url.Host)))
+            void BlockWeb()
             {
                 Console.WriteLine("Block website:" + messageInfo.Url.Host);
                 messageInfo.MessageType = MessageType.Response;
@@ -191,6 +188,52 @@ namespace KMASafeKidCore
                 messageInfo.Body = s_blockPageBytes;
                 return;
             }
+
+            ForceGoogleSafeSearch(messageInfo);
+
+            // Code Read file each line to sorter set
+            if (ConfigInApp.bBlockSocial)
+            {
+                if(BlockDB.ListSocial.Any(s => s.Contains(messageInfo.Url.Host)))
+                {
+                    BlockWeb();
+                    return;
+                }
+            }
+            if (ConfigInApp.bBlockAdult)
+            {
+                if (BlockDB.ListAdult.Any(s => s.Contains(messageInfo.Url.Host)))
+                {
+                    BlockWeb();
+                    return;
+                }
+            }
+            if (ConfigInApp.bBlockGame)
+            {
+                if (BlockDB.ListGameApp.Any(s => s.Contains(messageInfo.Url.Host)))
+                {
+                    BlockWeb();
+                    return;
+                }
+
+            }
+
+            if(BlockDB.ListUserHost.Any(s => s.Contains(messageInfo.Url.Host)))
+            {
+                BlockWeb();
+                return;
+            }
+
+
+            //if (blockList.Any(s => s.Contains(messageInfo.Url.Host)))
+            //{
+            //    Console.WriteLine("Block website:" + messageInfo.Url.Host);
+            //    messageInfo.MessageType = MessageType.Response;
+            //    messageInfo.ProxyNextAction = ProxyNextAction.DropConnection;
+            //    messageInfo.BodyContentType = "text/html";
+            //    messageInfo.Body = s_blockPageBytes;
+            //    return;
+            //}
 
             // Tiếp tục tới check body html
             messageInfo.ProxyNextAction = ProxyNextAction.AllowAndIgnoreContent;

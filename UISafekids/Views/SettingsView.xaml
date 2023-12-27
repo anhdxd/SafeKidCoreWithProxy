@@ -1,0 +1,187 @@
+﻿<UserControl
+    x:Class="UISafekids.Views.SettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:local="clr-namespace:UISafekids.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:modelView="clr-namespace:UISafekids.ViewModels"
+    d:Background="{StaticResource textSolidColorWhite}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    FontFamily="Montserrat"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="SettingTextStyles" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource textSolidColorCyan}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Margin" Value="0,0,10,10" />
+        </Style>
+        <Style x:Key="DetailTextStyles" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource textSolidColorBrow}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+        <Style x:Key="StackPanelText" TargetType="StackPanel">
+            <Setter Property="Margin" Value="70,0,100,0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <!--  create 10 slider by column and row  -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--  Đặt layout cho toggle button bên trong, ghi đè button cũ  -->
+                <Grid.Resources>
+                    <Style
+                        x:Key="OverrideToggleStyle"
+                        BasedOn="{StaticResource CustomToggle}"
+                        TargetType="ToggleButton">
+                        <Setter Property="Margin" Value="40,40" />
+                        <Setter Property="HorizontalAlignment" Value="Right" />
+                        <Setter Property="VerticalAlignment" Value="Top" />
+                        <Setter Property="Width" Value="50" />
+                        <Setter Property="Height" Value="25" />
+                    </Style>
+                    <Style x:Key="BorderStyles" TargetType="Border">
+                        <Setter Property="BorderBrush" Value="{StaticResource textSolidColor}" />
+                        <Setter Property="BorderThickness" Value="1" />
+                    </Style>
+                </Grid.Resources>
+                <StackPanel Grid.Column="0">
+                    <Grid>
+                        <iconPacks:PackIconBootstrapIcons
+                            Width="30"
+                            Height="30"
+                            Margin="25,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource textSolidColorCyan}"
+                            Kind="Controller" />
+                        <StackPanel Style="{StaticResource StackPanelText}">
+                            <TextBlock Style="{StaticResource SettingTextStyles}" Text="Chặn Game" />
+                            <TextBlock Style="{StaticResource DetailTextStyles}" Text="Chặn nền tảng game trên windows" />
+                        </StackPanel>
+                        <ToggleButton
+                            Name="Toggle_Game"
+                            Click="Game_Setting_Clicked"
+                            Style="{DynamicResource OverrideToggleStyle}" />
+                    </Grid>
+                    <Grid>
+                        <iconPacks:PackIconBootstrapIcons
+                            Width="30"
+                            Height="30"
+                            Margin="25,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource textSolidColorCyan}"
+                            Kind="Facebook" />
+                        <StackPanel Style="{StaticResource StackPanelText}">
+                            <TextBlock Style="{StaticResource SettingTextStyles}" Text="Chặn mạng xã hội" />
+                            <TextBlock Style="{StaticResource DetailTextStyles}" Text="Chặn tất cả các website mạng xã hội" />
+                        </StackPanel>
+                        <ToggleButton
+                            Name="Toggle_Social"
+                            Click="Social_Setting_Clicked"
+                            Style="{DynamicResource OverrideToggleStyle}" />
+                    </Grid>
+                    <Grid>
+                        <iconPacks:PackIconBootstrapIcons
+                            Width="30"
+                            Height="30"
+                            Margin="25,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource textSolidColorCyan}"
+                            Kind="Eyeglasses" />
+                        <StackPanel Style="{StaticResource StackPanelText}">
+                            <TextBlock Style="{StaticResource SettingTextStyles}" Text="Chặn tab ẩn danh" />
+                            <TextBlock Style="{StaticResource DetailTextStyles}" Text="Không cho sử dụng trình duyệt ẩn danh" />
+                        </StackPanel>
+                        <ToggleButton
+                            Name="Toggle_Inprivate"
+                            Click="Inprivate_Setting_Clicked"
+                            Style="{DynamicResource OverrideToggleStyle}" />
+                    </Grid>
+                    <Grid>
+                        <iconPacks:PackIconBootstrapIcons
+                            Width="30"
+                            Height="30"
+                            Margin="25,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource textSolidColorCyan}"
+                            Kind="PersonCircle" />
+                        <StackPanel Style="{StaticResource StackPanelText}">
+                            <TextBlock Style="{StaticResource SettingTextStyles}" Text="Chặn nội dung người lớn" />
+                            <TextBlock Style="{StaticResource DetailTextStyles}" Text="Chặn nội dung người lớn trên internet" />
+                        </StackPanel>
+                        <ToggleButton
+                            Name="Toggle_Adult"
+                            Click="Adult_Setting_Clicked"
+                            Style="{DynamicResource OverrideToggleStyle}" />
+                    </Grid>
+
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <Grid>
+                        <iconPacks:PackIconBootstrapIcons
+                            Width="30"
+                            Height="30"
+                            Margin="25,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource textSolidColorCyan}"
+                            Kind="Search" />
+                        <StackPanel Style="{StaticResource StackPanelText}">
+                            <TextBlock Style="{StaticResource SettingTextStyles}" Text="Tìm kiếm an toàn" />
+                            <TextBlock Style="{StaticResource DetailTextStyles}" Text="Chế độ tìm kiếm an toàn trên trình duyệt" />
+                        </StackPanel>
+                        <ToggleButton
+                            x:Name="Toggle_SafeSearch"
+                            Click="SafeSearch_Setting_Clicked"
+                            Style="{DynamicResource OverrideToggleStyle}" />
+                    </Grid>
+                    <Grid>
+                        <iconPacks:PackIconBootstrapIcons
+                            Width="30"
+                            Height="30"
+                            Margin="25,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource textSolidColorCyan}"
+                            Kind="Bezier" />
+                        <StackPanel Style="{StaticResource StackPanelText}">
+                            <TextBlock Style="{StaticResource SettingTextStyles}" Text="AI Safety" />
+                            <TextBlock Style="{StaticResource DetailTextStyles}" Text="Chặn nội dung xấu với trí tuệ nhân tạo" />
+                        </StackPanel>
+                        <ToggleButton Style="{DynamicResource OverrideToggleStyle}" />
+                    </Grid>
+                    <Grid>
+                        <iconPacks:PackIconBootstrapIcons
+                            Width="30"
+                            Height="30"
+                            Margin="25,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource textSolidColorCyan}"
+                            Kind="Shield" />
+                        <StackPanel Style="{StaticResource StackPanelText}">
+                            <TextBlock Style="{StaticResource SettingTextStyles}" Text="Tự bảo vệ" />
+                            <TextBlock Style="{StaticResource DetailTextStyles}" Text="Tự bảo vệ phần mềm tránh chỉnh sửa" />
+                        </StackPanel>
+                        <ToggleButton Style="{DynamicResource OverrideToggleStyle}" Checked="ToggleButton_Checked" />
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

@@ -61,9 +61,9 @@ namespace KMASafeKidCore
                         case "Chrome_WidgetWin_1":
                             ChromiumSafeSearch(elmRoot, ActiveWindow);
                             break;
-                        case "MozillaWindowClass":
-                            MozzilaSafeSearch(elmRoot, ActiveWindow);
-                            break;
+                        //case "MozillaWindowClass":
+                        //    MozzilaSafeSearch(elmRoot, ActiveWindow);
+                        //    break;
                         default:
                             break;
                     }
@@ -90,7 +90,7 @@ namespace KMASafeKidCore
         {
             try
             {
-                Console.WriteLine("ClassName: " + elmRoot.Current.ClassName);
+                //Console.WriteLine("ClassName: " + elmRoot.Current.ClassName);
                 DateTime startTime = new DateTime();
                 bool bWriteTime = true; // flag để ghi time start 
                 string sDomainOld = "";
@@ -118,12 +118,12 @@ namespace KMASafeKidCore
                     AutomationElement elmUrlBar = elmToolbar.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, "Address and search bar", PropertyConditionFlags.None));
                     if (elmUrlBar != null)
                     {
-                        Console.WriteLine("go too: ");
+                        //Console.WriteLine("go too: ");
                         goto _SETURLBAR;
                     }
                     else if ((elmUrlBar = elmToolbar.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, "Thanh địa chỉ và tìm kiếm", PropertyConditionFlags.None))) == null)
                     {
-                        Console.WriteLine("RETURN elmUrlBar: ");
+                        //Console.WriteLine("RETURN elmUrlBar: ");
                         return false;
                     }
                 _SETURLBAR:
@@ -150,45 +150,45 @@ namespace KMASafeKidCore
                                 goto _END;
 
 
-                            if (BlockDB.IsUserHost(sDomain))
-                                goto _BLOCKURL;
-                            if (ConfigInApp.bBlockAdult)
-                                if (BlockDB.IsAdultHost(sDomain))
-                                    goto _BLOCKURL;
-                            if(ConfigInApp.bBlockSocial)
-                                if (BlockDB.IsSocialHost(sDomain))
-                                    goto _BLOCKURL;
-                            goto _SAFESEARCH;
+                            //if (BlockDB.IsUserHost(sDomain))
+                            //    goto _BLOCKURL;
+                            //if (ConfigInApp.bBlockAdult)
+                            //    if (BlockDB.IsAdultHost(sDomain))
+                            //        goto _BLOCKURL;
+                            //if(ConfigInApp.bBlockSocial)
+                            //    if (BlockDB.IsSocialHost(sDomain))
+                            //        goto _BLOCKURL;
+                            //goto _SAFESEARCH;
 
-                            _BLOCKURL:
-                            string sUrlBlock = BlockDomainByWeb.m_gProtocol + sDomain + BlockDomainByWeb.m_gHtmlBlock;
-                            valUrlBar.SetValue(sUrlBlock);
+                            //_BLOCKURL:
+                            //string sUrlBlock = BlockDomainByWeb.m_gProtocol + sDomain + BlockDomainByWeb.m_gHtmlBlock;
+                            //valUrlBar.SetValue(sUrlBlock);
 
-                            var vrk = MapVirtualKeyA(0x0D, 0); //0x0D: VK_RETURN
-                            PostMessage(ActiveWindow, 0x0100, 0x0D, 0x0001 | vrk >> 16);
-                            PostMessage(ActiveWindow, 0x0101, 0x0D, 0x0001 | vrk >> 16 | 0xC0 >> 24);
+                            //var vrk = MapVirtualKeyA(0x0D, 0); //0x0D: VK_RETURN
+                            //PostMessage(ActiveWindow, 0x0100, 0x0D, 0x0001 | vrk >> 16);
+                            //PostMessage(ActiveWindow, 0x0101, 0x0D, 0x0001 | vrk >> 16 | 0xC0 >> 24);
 
-                            _SAFESEARCH:
-                            if (ConfigInApp.bSafeSearch)
-                            {
-                                foreach (KeyValuePair<string, string> item in SafeSearchParam) // check domain nào
-                                {
-                                    int bDomainSearch = valUrlBar.Current.Value.IndexOf(item.Key);
-                                    if (bDomainSearch != -1)
-                                    {
-                                        if (valUrlBar.Current.Value.IndexOf(item.Value) == -1) // Nếu chưa vào link safe thì add vào
-                                        {
-                                            string sUrlSafe = valUrlBar.Current.Value + item.Value;
-                                            valUrlBar.SetValue(sUrlSafe);
+                            //_SAFESEARCH:
+                            //if (ConfigInApp.bSafeSearch)
+                            //{
+                            //    foreach (KeyValuePair<string, string> item in SafeSearchParam) // check domain nào
+                            //    {
+                            //        int bDomainSearch = valUrlBar.Current.Value.IndexOf(item.Key);
+                            //        if (bDomainSearch != -1)
+                            //        {
+                            //            if (valUrlBar.Current.Value.IndexOf(item.Value) == -1) // Nếu chưa vào link safe thì add vào
+                            //            {
+                            //                string sUrlSafe = valUrlBar.Current.Value + item.Value;
+                            //                valUrlBar.SetValue(sUrlSafe);
 
-                                            var VirtualKey = MapVirtualKeyA(0x0D, 0); //0x0D: VK_RETURN
-                                            PostMessage(ActiveWindow, 0x0100, 0x0D, 0x0001 | VirtualKey >> 16);
-                                            PostMessage(ActiveWindow, 0x0101, 0x0D, 0x0001 | VirtualKey >> 16 | 0xC0 >> 24);
-                                        }
-                                        break;
-                                    }
-                                }
-                            }
+                            //                var VirtualKey = MapVirtualKeyA(0x0D, 0); //0x0D: VK_RETURN
+                            //                PostMessage(ActiveWindow, 0x0100, 0x0D, 0x0001 | VirtualKey >> 16);
+                            //                PostMessage(ActiveWindow, 0x0101, 0x0D, 0x0001 | VirtualKey >> 16 | 0xC0 >> 24);
+                            //            }
+                            //            break;
+                            //        }
+                            //    }
+                            //}
                         _END:
 
                             // DIARY WEB *********************************************88

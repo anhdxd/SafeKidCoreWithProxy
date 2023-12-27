@@ -1,0 +1,186 @@
+﻿<UserControl
+    x:Class="UISafekids.Views.CustomBlockView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:local="clr-namespace:UISafekids.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:modelView="clr-namespace:UISafekids.ViewModels"
+    d:DesignHeight="540"
+    d:DesignWidth="960"
+    FontFamily="Montserrat"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="purpleButton" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#773DFF" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                            Height="40"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#836EFB" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="110" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Button
+                Width="140"
+                Height="40"
+                Margin="0,60,10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                BorderThickness="0"
+                Click="Button_Click_AddApp"
+                Command=""
+                Content="Thêm app"
+                Cursor="Hand"
+                FontSize="20"
+                Foreground="{StaticResource textSolidColorCyan}"
+                Style="{DynamicResource buttonRoundRadious20}" />
+
+
+            <Button
+                Width="140"
+                Height="40"
+                Margin="0,7,10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                BorderThickness="0"
+                Click="Button_Click_AddWeb"
+                Command=""
+                Content="Thêm web"
+                Cursor="Hand"
+                FontSize="20"
+                Foreground="{StaticResource textSolidColorCyan}"
+                Style="{DynamicResource buttonRoundRadious20}" />
+            <TextBox
+                Name="txtAddWeb"
+                Width="712"
+                Height="40"
+                Margin="10,7,0,0"
+                Padding="10,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                VerticalContentAlignment="Center"
+                BorderThickness="1"
+                FontSize="20"
+                Style="{StaticResource roundTextBox20}"
+                Text="example.com"
+                TextWrapping="Wrap" />
+
+            <TextBox
+                Name="txtAddApp"
+                Width="712"
+                Height="40"
+                Margin="10,60,0,0"
+                Padding="10,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                VerticalContentAlignment="Center"
+                BorderThickness="1"
+                FontSize="20"
+                Style="{StaticResource roundTextBox20}"
+                Text="C:/User/notepad.exe"
+                TextWrapping="Wrap" />
+
+            <Button
+                Width="30"
+                Height="30"
+                Margin="686,65,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Background="#FF35ADDA"
+                BorderBrush="Transparent"
+                Foreground="Transparent" Click="Button_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15" />
+                    </Style>
+                </Button.Resources>
+                <iconPacks:PackIconMaterial Foreground="White" Kind="FolderOpen" />
+            </Button>
+
+        </Grid>
+        <!--  List show  -->
+        <Border
+            Grid.Row="1"
+            Padding="5"
+            Background="White"
+            CornerRadius="10">
+            <Border.DataContext>
+                <modelView:CustomBlockViewModel />
+            </Border.DataContext>
+
+            <DataGrid
+                AutoGenerateColumns="False"
+                Background="Transparent"
+                BorderThickness="0"
+                ColumnWidth="*"
+                GridLinesVisibility="None"
+                IsReadOnly="True"
+                ItemsSource="{Binding CustomBlockModel}">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="{StaticResource color1}" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="MinHeight" Value="40" />
+                        <Setter Property="FontSize" Value="18" />
+                        <Setter Property="FontWeight" Value="DemiBold" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                        <Setter Property="Padding" Value="10" />
+
+
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Foreground" Value="{StaticResource textSolidColorCyan}" />
+                        <Setter Property="FontSize" Value="20" />
+                        <Setter Property="MinHeight" Value="35" />
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                    </Style>
+                </DataGrid.CellStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="60"
+                        Binding="{Binding ID}"
+                        ClipboardContentBinding="{x:Null}"
+                        Header="ID"
+                        HeaderStringFormat="" />
+                    <DataGridTextColumn
+                        MinWidth="350"
+                        Binding="{Binding AppName}"
+                        ClipboardContentBinding="{x:Null}"
+                        Header="Application" />
+                    <DataGridTextColumn
+                        Binding="{Binding TimeBlock}"
+                        ClipboardContentBinding="{x:Null}"
+                        Header="Time Block" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -70,6 +70,15 @@ namespace KMASafeKidCore
             {
                 try
                 {
+                    if (!System.IO.File.Exists(loginConfig))
+                    {
+                        // Tạo một FileStream để tạo tệp mới
+                        using (FileStream fs = System.IO.File.Create(loginConfig))
+                        {
+                        }
+                        Console.WriteLine("Create ini login oke.");
+                    }
+
                     IniData loginIni = iniFile.ReadFile(loginConfig);
                     // login
                     idToken = loginIni["login"]["idToken"];

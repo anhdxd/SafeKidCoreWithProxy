@@ -41,12 +41,20 @@ namespace KMASafeKidCore
 
             //MonitorWindowApp.AddBlockAppToDB(@"C:\Program Files\Google\Chrome\Application\chrome.exe");
             //PipesClient.PipeConnect();
+            Thread SelfDefenseThread = new Thread(() =>
+            {
+                SelfDefense.StartFilter();
+            });
 
+            Thread ThreadProxy = new Thread(() =>
+            {
+                ProxyFilter.StartProxyFilter("blocklist.txt");
+            });
 
             Thread ThreadSafeBrowser = new Thread(() =>
             {
-                //MonitorWebApp.MonitorEachBrowser();
-                ProxyFilter.StartProxyFilter("blocklist.txt");
+                MonitorWebApp.MonitorEachBrowser();
+
             });
             Thread ThreadApp = new Thread(() =>
             {
@@ -58,6 +66,9 @@ namespace KMASafeKidCore
                 CDataSync.SyncDiary(); // code của thread bên trong này
             });
 
+            ThreadProxy.IsBackground = true;
+            ThreadProxy.Start();
+
             ThreadSafeBrowser.IsBackground = true;
             ThreadSafeBrowser.Start();
 
@@ -66,6 +77,10 @@ namespace KMASafeKidCore
 
             ThreadSync.IsBackground = true;
             ThreadSync.Start();
+
+            Thread.Sleep(3000);
+            SelfDefenseThread.IsBackground = true;
+            SelfDefenseThread.Start();
             ////MonitorWindowApp.CheckAppInstall();
 
             //BlockDB.LoadDB();
@@ -81,6 +96,12 @@ namespace KMASafeKidCore
         {
             string pcId = Utils.GetPcIdentify();
             Utils.AddRegistry("pcId", pcId);
+
+            // if exists file UISafekids.exe => run UISafekids.exe do not stop KMASafeKidCore.exe
+            if (File.Exists("UISafekids.exe"))
+            {
+                System.Diagnostics.Process.Start("UISafekids.exe");
+            }
 
         }
         private static void GrantAccess(string fullPath)

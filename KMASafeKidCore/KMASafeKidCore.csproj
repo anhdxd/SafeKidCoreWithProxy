@@ -36,7 +36,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\Build\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -47,7 +47,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\Build\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -102,6 +102,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -120,22 +121,48 @@
     <Compile Include="BlockDB.cs" />
     <Compile Include="BlockDomainByWeb.cs" />
     <Compile Include="ConfigInApp.cs" />
+    <Compile Include="Iphlpapi.cs" />
+    <Compile Include="Kernel32.cs" />
     <Compile Include="ModifySQlite.cs" />
     <Compile Include="MonitorWindowApp.cs" />
     <Compile Include="KMASafeKidCore.cs" />
+    <Compile Include="NetworkTables.cs" />
     <Compile Include="PipesServer.cs" />
+    <Compile Include="ProcessUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MonitorWebApp.cs" />
     <Compile Include="ProxyFilter.cs" />
     <Compile Include="Encrypt\RSA.cs" />
     <Compile Include="DataSync.cs" />
     <Compile Include="Encrypt\RSAKeys.cs" />
+    <Compile Include="SelfDefense.cs" />
     <Compile Include="Socket_client.cs" />
     <Compile Include="UpdateDB.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Content Include="DBB\ADB.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBB\DomainAdult.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBB\DomainSocial.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBB\GDB.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBB\SDB.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBB\UADB.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBB\UDB.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -159,6 +186,9 @@
     <PackageReference Include="CitadelCore.Windows">
       <Version>4.2.5</Version>
     </PackageReference>
+    <PackageReference Include="EaseFilter.FilterControl">
+      <Version>5.1.5.2</Version>
+    </PackageReference>
     <PackageReference Include="ini-parser">
       <Version>2.5.2</Version>
     </PackageReference>
@@ -179,6 +209,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BlockedPage.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="README.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
