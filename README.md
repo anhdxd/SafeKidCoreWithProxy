@@ -1,4 +1,4 @@
-# KMASafeKidCore - Đồ án siêu vip pro
+# KMASafeKidCore - Theo dõi hoạt động, bảo vệ trẻ trên Internet
 
 Filter network with proxy TLS, using Windivert.
 
